@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/MitoMonkey/MoveX/issues"
   },
-  "homepage": "https://github.com/MitoMonkey/MoveX#readme"
+  "homepage": "https://github.com/MitoMonkey/MoveX#readme",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
 }
