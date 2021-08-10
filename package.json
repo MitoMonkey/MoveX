@@ -1,0 +1,26 @@
+{
+  "name": "movex",
+  "version": "1.0.0",
+  "description": "A library of moves",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MitoMonkey/MoveX.git"
+  },
+  "keywords": [
+    "api",
+    "node",
+    "library",
+    "moves"
+  ],
+  "author": "Mito CodingMonkey",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MitoMonkey/MoveX/issues"
+  },
+  "homepage": "https://github.com/MitoMonkey/MoveX#readme"
+}
