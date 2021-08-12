@@ -1,15 +1,15 @@
 let topMoves = [
     {
         title: 'Macaco',
-        category: 'capoeira'
+        styles: 'capoeira, FlowAcrobatics'
     },
     {
         title: 'pushup',
-        category: 'bodyweight stregth'
+        styles: 'bodyweight strength'
     },
     {
         title: 'aerial',
-        category: 'tumbling'
+        styles: 'tumbling'
     }
 ];
 
