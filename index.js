@@ -1,10 +1,3 @@
-const express = require('express'), 
-    morgan = require('morgan');
-
-const app = express(); // encapsulates Express’s functionality to configure your web server
-
-app.use(morgan('common')); // module for logging
-
 let topMoves = [
     {
         title: 'Macaco',
@@ -20,14 +13,24 @@ let topMoves = [
     }
 ];
 
+const express = require('express'), 
+    morgan = require('morgan');
+
+const app = express(); // encapsulates Express’s functionality to configure your web server
+
+app.use(morgan('common')); // module for logging
+app.use(express.static('public')); // automatically route all files in the "public" folder
+
 // GET requests
 app.get('/', (req, res) => {
     res.send('Welcome to MoveX !');
 });
 
+/*
 app.get('/documentation', (req, res) => {
-    res.sendFile('documentation.html', { root: __dirname });
+    res.sendFile('/public/documentation.html', { root: __dirname });
 });
+*/
 
 app.get('/moves', (req, res) => {
     res.json(topMoves);
