@@ -3,29 +3,41 @@ let topMoves = [
         title: 'Macaco',
         cues: 'Instructions how to do the move',
         styles: 'Capoeira, FlowAcrobatics', // analog to "genre"
-        source: '#', // analog to "director"
-        link: '#',
+        source: { // analog to "director"
+            mover: 'Mestre',
+            weblink: 'http://youtube.com/Macaco'
+        },
         featured: 'yes'
     },
     {
         title: 'pushup',
         cues: 'instructions how to do the move',
         styles: 'bodyweight strength', // analog to "genre"
-        source: '#', // analog to "director"
-        link: '#',
+        source: { // analog to "director"
+            mover: 'Fitboy',
+            weblink: 'http://youtube.com/Pushup'
+        },
         featured: 'no'
     },
     {
-        title: 'aerial',
-        cues: 'instructions how to do the move',
+        title: 'Aerial',
+        cues: 'Instructions how to do the move',
         styles: 'tumbling', // analog to "genre"
-        source: '#', // analog to "director"
-        link: '#',
+        source: { // analog to "director"
+            mover: 'Gymnast',
+            weblink: 'http://youtube.com/aerial'
+        },
         featured: 'yes'
     }
 ];
 
-let users = [];
+let users = [
+    {
+        name: "Jason",
+        email: "jason@mail.com",
+        favorites: ""
+    }
+];
 
 const express = require('express'), 
     morgan = require('morgan'), // module for logging
@@ -38,7 +50,7 @@ app.use(morgan('common'));
 app.use(express.static('public')); // automatically route all files in the "public" folder
 app.use(bodyParser.json());
 
-// ROUTING
+// --- ROUTING ---
 
 // welcome / root
 app.get('/', (req, res) => {
@@ -52,7 +64,7 @@ app.get('/moves', (req, res) => {
 
 // GET details about one move
 app.get('/moves/:name', (req, res) => {
-    res.json(topMoves.find((move) => { return move.name === req.params.name }));
+    res.json(topMoves.find((move) => { return move.title === req.params.name }));
 });
 
 // GET data about a style - NOT WORKING YET because database does not exist yet
@@ -61,8 +73,9 @@ app.get('/styles/:name', (req, res) => {
 });
 
 // GET data about a source - NOT WORKING YET because database does not exist yet
-app.get('/sources/:name', (req, res) => {
-    res.send('Successful GET request returning data on the source: ' + req.params.name);
+app.get('/sources/:mover', (req, res) => {
+    // res.json(topMoves.find((source) => { return source.source.mover === req.params.mover}));
+    res.send('Successful GET request returning data on the content source by name of the mover: ' + req.params.mover);
 });
 
 // Register new user
@@ -79,7 +92,7 @@ app.post('/users', (req, res) => {
 });
 
 // Update user data
-app.put('/users/:name?:newName', (req, res) => {
+app.put('/users/:name/:newName', (req, res) => {
     let user = users.find((user) => { return user.name === req.params.name });
 
     if (user) {
@@ -97,27 +110,28 @@ app.delete('/users/:name', (req, res) => {
         const message = 'Missing name in URL';
         res.status(400).send(message);
     } else {
-        users.delete(user);
-        res.status(201).send('Successful DELETE request to remove useraccount for ' + user);
+        let index = users.indexOf(user);
+        delete users[index];
+        res.status(201).send('Successful DELETE request to remove useraccount for ' + req.params.name);
     }
 });
 
 // Add move to favorite list
-app.post('/users/:name/favorites', (req, res) => {
-    let user = req.params.name;
-    let newFavorite = req.body;
+app.post('/users/:name/favorites/:move', (req, res) => {
+    // let user = req.params.name;
+    // let newFavorite = req.body;
     
     // some "if..." needed to catch errors
-    res.send('Successful POST request to add the move ' + newFavorite + ' to user account ' + user);
+    res.send('Successful POST request to add the move ' + req.params.move + ' to user account of ' + req.params.name);
 });
 
 // Remove favorite from list
-app.delete('/users/:name/favorites', (req, res) => {
-    let user = req.params.name;
-    let favorite = req.body;
+app.delete('/users/:name/favorites/:move', (req, res) => {
+    // let user = req.params.name;
+    // let favorite = req.body;
 
     // some "if..." needed to catch errors
-    res.send('Successful DELETE request to remove ' + favorite + ' from user account ' + user);
+    res.send('Successful DELETE request to remove ' + req.params.move + ' from user account of ' + req.params.name);
 });
 
 
