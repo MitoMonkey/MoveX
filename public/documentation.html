@@ -12,7 +12,109 @@
 
 <body>
     <h1>Welcome to the MoveX documentation</h1>
-    <p>MoveX is a library of moves, that allows users to search for moves and create an account to safe their favorites.</p>
+    <p>MoveX is a library of moves, that allows users to search for moves and create an account to safe their favorites.
+    </p>
     <p>Moves and user data is stored in a database (MongoDB), and accessed via a REST API.</p>
+
+    <div id="List of API actions_20009">
+        <table>
+            <tr style="font-weight:bold; background-color: aquamarine;"></tr>
+                <td height=38 width=240 style='height:28.8pt;width:180pt'>Request</td>
+                <td width=206 style='border-left:none;width:154pt'>URL</td>
+                <td width=55 style='border-left:none;width:41pt'>HTTP Method</td>
+                <td width=144 style='border-left:none;width:108pt'>Request
+                    body</td>
+                <td width=152 style='border-left:none;width:114pt'>Response
+                    format</td>
+                <td width=573 style='border-left:none;width:430pt'>Comment</td>
+            </tr>
+            <tr>
+                <td height=19 class=xl6420009 width=240 style='height:14.4pt;width:180pt'>Get
+                    list of all moves</td>
+                <td width=206 style='width:154pt'>/moves</td>
+                <td width=55 style='width:41pt'>GET</td>
+                <td width=144 style='width:108pt'>none</td>
+                <td width=152 style='width:114pt'>JSON (ID, names, links)</td>
+            </tr>
+            <tr>
+                <td height=19 class=xl6420009 width=240 style='height:14.4pt;width:180pt'>Get
+                    data about single move by name</td>
+                <td width=206 style='width:154pt'>/moves/:name</td>
+                <td width=55 style='width:41pt'>GET</td>
+                <td width=144 style='width:108pt'>none</td>
+                <td width=152 style='width:114pt'>JSON (move details)</td>
+            </tr>
+            <tr>
+                <td height=38 class=xl6420009 width=240 style='height:28.8pt;width:180pt'>Get
+                    data about a style</td>
+                <td width=206 style='width:154pt'>/styles/:name</td>
+                <td width=55 style='width:41pt'>GET</td>
+                <td width=144 style='width:108pt'>none</td>
+                <td width=152 style='width:114pt'>String + JSON (all moves in
+                    this style)</td>
+            </tr>
+            <tr>
+                <td height=19 class=xl6420009 width=240 style='height:14.4pt;width:180pt'>Get
+                    data about a source</td>
+                <td class=xl6420009 width=206 style='width:154pt'>/sources/:name</td>
+                <td class=xl6520009 width=55 style='width:41pt'>GET</td>
+                <td class=xl6520009 width=144 style='width:108pt'>none</td>
+                <td class=xl6520009 width=152 style='width:114pt'>JSON</td>
+                <td class=xl6620009></td>
+            </tr>
+            <tr>
+                <td height=19 class=xl6420009 width=240 style='height:14.4pt;width:180pt'>Register
+                    new user</td>
+                <td class=xl6420009 width=206 style='width:154pt'>/users</td>
+                <td class=xl6720009>POST</td>
+                <td class=xl6720009>JSON (name, email)</td>
+                <td class=xl6720009>JSON (user data)</td>
+                <td class=xl6620009></td>
+            </tr>
+            <tr height=38 style='height:28.8pt'>
+                <td height=38 class=xl6420009 width=240 style='height:28.8pt;width:180pt'>Update
+                    user information</td>
+                <td class=xl6420009 width=206 style='width:154pt'>/users/:name?:newname</td>
+                <td class=xl6720009>PUT</td>
+                <td class=xl6720009>none</td>
+                <td class=xl6720009>JSON (user data)</td>
+                <td class=xl6820009 width=573 style='width:430pt'>At this stage only the
+                    username can be updated. <br>
+                    If the whole profile should be updated, the URL will be &quot;/users&quot;
+                    and the Request body &quot;JSON&quot;.</td>
+            </tr>
+            <tr>
+                <td height=19 class=xl6420009 width=240 style='height:14.4pt;width:180pt'>Add
+                    move to favorite list</td>
+                <td class=xl6420009 width=206 style='width:154pt'>/users/:name/favorites</td>
+                <td class=xl6720009>POST</td>
+                <td class=xl6720009>String (move ID)</td>
+                <td class=xl6720009>String</td>
+                <td class=xl6620009></td>
+            </tr>
+            <tr>
+                <td height=19 class=xl6420009 width=240 style='height:14.4pt;width:180pt'>Remove
+                    move from favorite list</td>
+                <td class=xl6420009 width=206 style='width:154pt'>/user/:name/favorites</td>
+                <td class=xl6720009>DELETE</td>
+                <td class=xl6720009>String (move ID)</td>
+                <td class=xl6720009>String</td>
+                <td class=xl6620009></td>
+            </tr>
+            <tr>
+                <td height=19 class=xl6420009 width=240 style='height:14.4pt;width:180pt'>Deregister
+                    a user</td>
+                <td class=xl6420009 width=206 style='width:154pt'>/users/:name</td>
+                <td class=xl6720009>DELETE</td>
+                <td class=xl6720009>none</td>
+                <td class=xl6720009>String</td>
+                <td class=xl6620009></td>
+            </tr>            
+        </table>
+    </div>
+
 </body>
+
+
+
 </html>

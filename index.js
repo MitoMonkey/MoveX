@@ -1,15 +1,27 @@
 let topMoves = [
     {
         title: 'Macaco',
-        styles: 'capoeira, FlowAcrobatics'
+        cues: 'Instructions how to do the move',
+        styles: 'Capoeira, FlowAcrobatics', // analog to "genre"
+        source: '#', // analog to "director"
+        link: '#',
+        featured: 'yes'
     },
     {
         title: 'pushup',
-        styles: 'bodyweight strength'
+        cues: 'instructions how to do the move',
+        styles: 'bodyweight strength', // analog to "genre"
+        source: '#', // analog to "director"
+        link: '#',
+        featured: 'no'
     },
     {
         title: 'aerial',
-        styles: 'tumbling'
+        cues: 'instructions how to do the move',
+        styles: 'tumbling', // analog to "genre"
+        source: '#', // analog to "director"
+        link: '#',
+        featured: 'yes'
     }
 ];
 
