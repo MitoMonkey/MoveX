@@ -74,9 +74,9 @@
             <tr height=38 style='height:28.8pt'>
                 <td height=38 class=xl6420009 width=240 style='height:28.8pt;width:180pt'>Update
                     user information</td>
-                <td class=xl6420009 width=206 style='width:154pt'>/users/:name/:newname</td>
+                <td class=xl6420009 width=206 style='width:154pt'>/users/:name</td>
                 <td class=xl6720009>PUT</td>
-                <td class=xl6720009>none</td>
+                <td class=xl6720009>string (newName)</td>
                 <td class=xl6720009>JSON (user data)</td>
                 <td class=xl6820009 width=573 style='width:430pt'>At this stage only the
                     username can be updated. <br>
@@ -86,7 +86,7 @@
             <tr>
                 <td height=19 class=xl6420009 width=240 style='height:14.4pt;width:180pt'>Add
                     move to favorite list</td>
-                <td class=xl6420009 width=206 style='width:154pt'>/users/:name/favorites/:move</td>
+                <td class=xl6420009 width=206 style='width:154pt'>/users/:name/favorites</td>
                 <td class=xl6720009>POST</td>
                 <td class=xl6720009>String (move ID)</td>
                 <td class=xl6720009>String</td>
@@ -95,7 +95,7 @@
             <tr>
                 <td height=19 class=xl6420009 width=240 style='height:14.4pt;width:180pt'>Remove
                     move from favorite list</td>
-                <td class=xl6420009 width=206 style='width:154pt'>/user/:name/favorites/:move</td>
+                <td class=xl6420009 width=206 style='width:154pt'>/user/:name/favorites</td>
                 <td class=xl6720009>DELETE</td>
                 <td class=xl6720009>String (move ID)</td>
                 <td class=xl6720009>String</td>

@@ -103,7 +103,7 @@ app.put('/users/:name/:newName', (req, res) => {
     }
 });
 
-// Deregister a user
+// Deregister a user - THIS FUNCTION SEEMS TO HAVE AN ERROR AS IT DOES NOT SEND ANYTHING BACK TO POSTMAN YET
 app.delete('/users/:name', (req, res) => {
     let user = users.find((user) => { return user.name === req.params.name });
     if (!user) {
@@ -137,9 +137,10 @@ app.delete('/users/:name/favorites/:move', (req, res) => {
 
 
 // handling for errors that have not be handled anywhere else
+// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).send('Something broke!');
+    res.status(500).send('Something broke! Check the console for more details.');
 });
 
 // listen for requests
