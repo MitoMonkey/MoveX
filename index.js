@@ -120,49 +120,109 @@ app.post('/users', (req, res) => {
         });
 });
 
-// Update user data
-app.put('/users/:name/:newName', (req, res) => {
-    let user = users.find((user) => { return user.name === req.params.name });
-
-    if (user) {
-        user.name = req.params.newName;
-        res.status(201).send('Username ' + req.params.name + ' was changed to ' + req.params.newName);
-    } else {
-        res.status(404).send('Student with the name ' + req.params.name + ' was not found.');
-    }
+// Update a user's info, by username (using a callback rather than the ES6 functions then() and catch() )
+    /* We’ll expect JSON in this format
+    {
+    Username: String, (required)
+    Password: String, (required)
+    Email: String, (required)
+    Birthday: Date
+    }*/
+app.put('/users/:Username', (req, res) => {
+    Users.findOneAndUpdate({ Username: req.params.Username }, {
+        $set:
+        {
+            Username: req.body.Username,
+            Password: req.body.Password,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday
+        }
+    },
+        { new: true }, // This line makes sure that the updated document is returned into the callback:
+        (err, updatedUser) => {
+            if (err) {
+                console.error(err);
+                res.status(500).send('Error: ' + err);
+            } else {
+                res.json(updatedUser);
+            }
+        });
 });
 
-// Deregister a user - THIS FUNCTION SEEMS TO HAVE AN ERROR AS IT DOES NOT SEND ANYTHING BACK TO POSTMAN YET
-app.delete('/users/:name', (req, res) => {
-    let user = users.find((user) => { return user.name === req.params.name });
-    if (!user) {
-        const message = 'Missing name in URL';
-        res.status(400).send(message);
-    } else {
-        let index = users.indexOf(user);
-        delete users[index];
-        res.status(201).send('Successful DELETE request to remove useraccount for ' + req.params.name);
-    }
+// Delete a user by username
+app.delete('/users/:Username', (req, res) => {
+    Users.findOneAndRemove({ Username: req.params.Username })
+        .then((user) => {
+            if (!user) {
+                res.status(400).send(req.params.Username + ' was not found');
+            } else {
+                res.status(200).send(req.params.Username + ' was deleted.');
+            }
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send('Error: ' + err);
+        });
 });
 
-// Add move to favorite list
-app.post('/users/:name/favorites/:move', (req, res) => {
-    // let user = req.params.name;
-    // let newFavorite = req.body;
-    
-    // some "if..." needed to catch errors
-    res.send('Successful POST request to add the move ' + req.params.move + ' to user account of ' + req.params.name);
+// Add a move to a user's list of favorites
+app.post('/users/:Username/moves/:MoveID', (req, res) => {
+    Users.findOneAndUpdate({ Username: req.params.Username }, {
+        // TO ADD: validate if the move is already in the list, otherwise it will be double
+        $push: { FavoriteMoves: req.params.MoveID }
+    },
+        { new: true }, // This line makes sure that the updated document is returned
+        (err, updatedUser) => {
+            if (err) {
+                console.error(err);
+                res.status(500).send('Error: ' + err);
+            } else {
+                res.json(updatedUser);
+            }
+        });
 });
 
 // Remove favorite from list
-app.delete('/users/:name/favorites/:move', (req, res) => {
-    // let user = req.params.name;
-    // let favorite = req.body;
-
-    // some "if..." needed to catch errors
-    res.send('Successful DELETE request to remove ' + req.params.move + ' from user account of ' + req.params.name);
+app.delete('/users/:Username/moves/:MoveID', (req, res) => {
+    Users.findOneAndUpdate({ Username: req.params.Username }, {
+        // TO ADD: validate if the move is already in the list, otherwise it will be double
+        $pull: { FavoriteMoves: req.params.MoveID }
+    },
+        { new: true }, // This line makes sure that the updated document is returned
+        (err, updatedUser) => {
+            if (err) {
+                console.error(err);
+                res.status(500).send('Error: ' + err);
+            } else {
+                res.json(updatedUser);
+            }
+        });
 });
 
+
+// Get all users --- NOT A DEFINED API ENDPOINT
+app.get('/users', (req, res) => {
+    Users.find()
+        .then((users) => {
+            res.status(201).json(users);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send('Error: ' + err);
+        });
+});
+
+// Get a user by username --- NOT A DEFINED API ENDPOINT
+app.get('/users/:Username', (req, res) => {
+    Users.findOne({ Username: req.params.Username })
+        .then((user) => {
+            res.json(user);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send('Error: ' + err);
+        });
+});
 
 
 // handling for errors that have not be handled anywhere else
