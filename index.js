@@ -41,19 +41,21 @@ let users = [
 
 const express = require('express'), 
     morgan = require('morgan'), // module for logging
-    bodyParser = require('body-parser'),
-    uuid = require('uuid'),
-    mongoose = require('mongoose'),
-    Models = require('./models.js');
+    bodyParser = require('body-parser'), // module to parse the body of an API request (eg: "let newUser = req.body;")
+    uuid = require('uuid'), // module to create unique IDs
+    mongoose = require('mongoose'), // business layer logic to link Node and the MongoDB
+    Models = require('./models.js'); // Mongoose models representing the MoveX_DB (MongoDB) collections
 
 const app = express(); // encapsulates Express’s functionality to configure your web server
 const Moves = Models.Move; // load the mongoose modules defined in models.js
 const Users = Models.User;
 mongoose.connect('mongodb://localhost:27017/MoveX_DB', { useNewUrlParser: true, useUnifiedTopology: true });
 
-app.use(morgan('common')); 
+// "use" middleware
+app.use(morgan('common')); // load "common" logging rules
 app.use(express.static('public')); // automatically route all files in the "public" folder
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // --- ROUTING ---
 
