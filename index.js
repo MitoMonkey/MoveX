@@ -42,9 +42,14 @@ let users = [
 const express = require('express'), 
     morgan = require('morgan'), // module for logging
     bodyParser = require('body-parser'),
-    uuid = require('uuid');
+    uuid = require('uuid'),
+    mongoose = require('mongoose'),
+    Models = require('./models.js');
 
 const app = express(); // encapsulates Express’s functionality to configure your web server
+const Moves = Models.Move; // load the mongoose modules defined in models.js
+const Users = Models.User;
+mongoose.connect('mongodb://localhost:27017/MoveX_DB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(morgan('common')); 
 app.use(express.static('public')); // automatically route all files in the "public" folder
