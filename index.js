@@ -1,7 +1,6 @@
 const express = require('express'), 
     morgan = require('morgan'), // module for logging
     bodyParser = require('body-parser'), // module to parse the body of an API request (eg: "let newUser = req.body;")
-    uuid = require('uuid'), // module to create unique IDs
     mongoose = require('mongoose'), // business layer logic to link Node and the MongoDB
     Models = require('./models.js'); // Mongoose models representing the MoveX_DB (MongoDB) collections
 
