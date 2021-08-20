@@ -1,44 +1,3 @@
-let topMoves = [
-    {
-        title: 'Macaco',
-        cues: 'Instructions how to do the move',
-        styles: 'Capoeira, FlowAcrobatics', // analog to "genre"
-        source: { // analog to "director"
-            mover: 'Mestre',
-            weblink: 'http://youtube.com/Macaco'
-        },
-        featured: 'yes'
-    },
-    {
-        title: 'pushup',
-        cues: 'instructions how to do the move',
-        styles: 'bodyweight strength', // analog to "genre"
-        source: { // analog to "director"
-            mover: 'Fitboy',
-            weblink: 'http://youtube.com/Pushup'
-        },
-        featured: 'no'
-    },
-    {
-        title: 'Aerial',
-        cues: 'Instructions how to do the move',
-        styles: 'tumbling', // analog to "genre"
-        source: { // analog to "director"
-            mover: 'Gymnast',
-            weblink: 'http://youtube.com/aerial'
-        },
-        featured: 'yes'
-    }
-];
-
-let users = [
-    {
-        name: "Jason",
-        email: "jason@mail.com",
-        favorites: ""
-    }
-];
-
 const express = require('express'), 
     morgan = require('morgan'), // module for logging
     bodyParser = require('body-parser'), // module to parse the body of an API request (eg: "let newUser = req.body;")
@@ -47,7 +6,7 @@ const express = require('express'),
     Models = require('./models.js'); // Mongoose models representing the MoveX_DB (MongoDB) collections
 
 const app = express(); // encapsulates Express’s functionality to configure your web server
-const Moves = Models.Move; // load the mongoose modules defined in models.js
+const Moves = Models.Move; // load the mongoose model defined in models.js
 const Users = Models.User;
 mongoose.connect('mongodb://localhost:27017/MoveX_DB', { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -66,23 +25,51 @@ app.get('/', (req, res) => {
 
 // GET list of all moves
 app.get('/moves', (req, res) => {
-    res.json(topMoves);
+    Moves.find()
+        .then((moves) => {
+            res.status(201).json(moves);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send('Error: ' + err);
+        });
+    // res.json(topMoves);
 });
 
 // GET details about one move
-app.get('/moves/:name', (req, res) => {
-    res.json(topMoves.find((move) => { return move.title === req.params.name }));
+app.get('/moves/:Title', (req, res) => {
+    Moves.findOne({ Title: req.params.Title })
+        .then((move) => {
+            res.json(move);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send('Error: ' + err);
+        });
 });
 
-// GET data about a style - NOT WORKING YET because database does not exist yet
-app.get('/styles/:name', (req, res) => {
-    res.send('Successful GET request returning data on the style: ' + req.params.name);
+// GET data about a style
+app.get('/styles/:Name', (req, res) => {
+    Moves.findOne({ "Style.Name": req.params.Name })
+        .then((move) => {
+            res.json(move.Style);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send('Error: ' + err);
+        });
 });
 
-// GET data about a source - NOT WORKING YET because database does not exist yet
-app.get('/sources/:mover', (req, res) => {
-    // res.json(topMoves.find((source) => { return source.source.mover === req.params.mover}));
-    res.send('Successful GET request returning data on the content source by name of the mover: ' + req.params.mover);
+// GET data about a source
+app.get('/sources/:Name', (req, res) => {
+    Moves.findOne({ "Source.Name": req.params.Name })
+        .then((move) => {
+            res.json(move.Source);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send('Error: ' + err);
+        });
 });
 
 // Register new user
