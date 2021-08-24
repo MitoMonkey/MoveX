@@ -74,8 +74,7 @@ app.get('/sources/:Name', passport.authenticate('jwt', { session: false }), (req
         });
 });
 
-/* THIS FUNCTION HAS BEEN MOVED TO auth.js
-// Register new user
+// Register new user - THIS ENDPOINT DOES NOT NEED ANY AUTHENTICATION OFC
     /* We’ll expect JSON in this format
     {
     ID: Integer,
@@ -83,7 +82,7 @@ app.get('/sources/:Name', passport.authenticate('jwt', { session: false }), (req
     Password: String,
     Email: String,
     Birthday: Date
-    } 
+    } */
 app.post('/users', (req, res) => {
     Users.findOne({ Username: req.body.Username })
         .then((user) => {
@@ -109,7 +108,7 @@ app.post('/users', (req, res) => {
             res.status(500).send('Error: ' + error);
         });
 });
-*/
+
 
 // Update a user's info, by username (using a callback rather than the ES6 functions then() and catch() )
     /* We’ll expect JSON in this format

@@ -2,13 +2,14 @@
 // it contains logic for authenticating users with basic HTTP authentication and generating a JWT token for authenticating future requests
 
 const jwtSecret = 'your_jwt_secret'; // this has to be the same key used in the JWTStrategy
+
 const jwt = require('jsonwebtoken'),
-    passport = require ('passport');
+    passport = require('passport');
 require('./passport');
 
 let generateJWTToken = (user) => {
     return jwt.sign(user, jwtSecret, {
-        subject: user.Username, 
+        subject: user.Username,
         expiresIn: '7d',
         algorithm: 'HS256'
     });
@@ -17,20 +18,19 @@ let generateJWTToken = (user) => {
 /* POST login */
 module.exports = (router) => {
     router.post('/login', (req, res) => {
-        passport.authenticate('local', {session: false},
-        (error, user, info) => {
+        passport.authenticate('local', { session: false }, (error, user, info) => {
             if (error || !user) {
                 return res.status(400).json({
-                    message: "Something isn't right",
+                    message: 'Something is not right',
                     user: user
                 });
             }
-            req.login(user, {session: false}, (error) => {
+            req.login(user, { session: false }, (error) => {
                 if (error) {
                     res.send(error);
                 }
                 let token = generateJWTToken(user.toJSON());
-                return res.json({user, token});
+                return res.json({ user, token });
             });
         })(req, res);
     });
