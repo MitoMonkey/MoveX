@@ -36,11 +36,10 @@ app.get('/moves', passport.authenticate('jwt', { session: false }), (req, res) =
             console.error(err);
             res.status(500).send('Error: ' + err);
         });
-    // res.json(topMoves);
 });
 
 // GET details about one move
-app.get('/moves/:Title', (req, res) => {
+app.get('/moves/:Title', passport.authenticate('jwt', { session: false }), (req, res) => {
     Moves.findOne({ Title: req.params.Title })
         .then((move) => {
             res.json(move);
@@ -52,7 +51,7 @@ app.get('/moves/:Title', (req, res) => {
 });
 
 // GET data about a style
-app.get('/styles/:Name', (req, res) => {
+app.get('/styles/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
     Moves.findOne({ "Style.Name": req.params.Name })
         .then((move) => {
             res.json(move.Style);
@@ -64,7 +63,7 @@ app.get('/styles/:Name', (req, res) => {
 });
 
 // GET data about a source
-app.get('/sources/:Name', (req, res) => {
+app.get('/sources/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
     Moves.findOne({ "Source.Name": req.params.Name })
         .then((move) => {
             res.json(move.Source);
@@ -75,6 +74,7 @@ app.get('/sources/:Name', (req, res) => {
         });
 });
 
+/* THIS FUNCTION HAS BEEN MOVED TO auth.js
 // Register new user
     /* We’ll expect JSON in this format
     {
@@ -83,7 +83,7 @@ app.get('/sources/:Name', (req, res) => {
     Password: String,
     Email: String,
     Birthday: Date
-    } */
+    } 
 app.post('/users', (req, res) => {
     Users.findOne({ Username: req.body.Username })
         .then((user) => {
@@ -109,6 +109,7 @@ app.post('/users', (req, res) => {
             res.status(500).send('Error: ' + error);
         });
 });
+*/
 
 // Update a user's info, by username (using a callback rather than the ES6 functions then() and catch() )
     /* We’ll expect JSON in this format
@@ -118,7 +119,7 @@ app.post('/users', (req, res) => {
     Email: String, (required)
     Birthday: Date
     }*/
-app.put('/users/:Username', (req, res) => {
+app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
         $set:
         {
@@ -140,7 +141,7 @@ app.put('/users/:Username', (req, res) => {
 });
 
 // Delete a user by username
-app.delete('/users/:Username', (req, res) => {
+app.delete('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
     Users.findOneAndRemove({ Username: req.params.Username })
         .then((user) => {
             if (!user) {
@@ -156,7 +157,7 @@ app.delete('/users/:Username', (req, res) => {
 });
 
 // Add a move to a user's list of favorites
-app.post('/users/:Username/moves/:MoveID', (req, res) => {
+app.post('/users/:Username/moves/:MoveID', passport.authenticate('jwt', { session: false }), (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
         // TO ADD: validate if the move is already in the list, otherwise it will be double
         $push: { FavoriteMoves: req.params.MoveID }
@@ -173,7 +174,7 @@ app.post('/users/:Username/moves/:MoveID', (req, res) => {
 });
 
 // Remove favorite from list
-app.delete('/users/:Username/moves/:MoveID', (req, res) => {
+app.delete('/users/:Username/moves/:MoveID', passport.authenticate('jwt', { session: false }), (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
         // TO ADD: validate if the move is already in the list, otherwise it will be double
         $pull: { FavoriteMoves: req.params.MoveID }
@@ -191,7 +192,7 @@ app.delete('/users/:Username/moves/:MoveID', (req, res) => {
 
 
 // Get all users --- NOT A DEFINED API ENDPOINT
-app.get('/users', (req, res) => {
+app.get('/users', passport.authenticate('jwt', { session: false }), (req, res) => {
     Users.find()
         .then((users) => {
             res.status(201).json(users);
@@ -203,7 +204,7 @@ app.get('/users', (req, res) => {
 });
 
 // Get a user by username --- NOT A DEFINED API ENDPOINT
-app.get('/users/:Username', (req, res) => {
+app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
     Users.findOne({ Username: req.params.Username })
         .then((user) => {
             res.json(user);
