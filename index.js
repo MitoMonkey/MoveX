@@ -15,6 +15,10 @@ app.use(express.static('public')); // automatically route all files in the "publ
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+let auth = require('./auth')(app);
+const passport = require('passport');
+require('./passport');
+
 // --- ROUTING ---
 
 // welcome / root
@@ -23,7 +27,7 @@ app.get('/', (req, res) => {
 });
 
 // GET list of all moves
-app.get('/moves', (req, res) => {
+app.get('/moves', passport.authenticate('jwt', { session: false }), (req, res) => {
     Moves.find()
         .then((moves) => {
             res.status(201).json(moves);
