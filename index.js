@@ -89,7 +89,8 @@ app.get('/sources/:Name', passport.authenticate('jwt', { session: false }), (req
         });
 });
 
-// Register new user - THIS ENDPOINT DOES NOT NEED ANY AUTHENTICATION OFC
+// Register new user 
+// THIS ENDPOINT DOES NOT NEED ANY AUTHENTICATION OFC
     /* We’ll expect JSON in this format
     {
     ID: Integer,
@@ -99,7 +100,8 @@ app.get('/sources/:Name', passport.authenticate('jwt', { session: false }), (req
     Birthday: Date
     } */
 app.post('/users', (req, res) => {
-    Users.findOne({ Username: req.body.Username })
+    let hashedPassword = Users.hashPassword(req.body.Password);
+    Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
         .then((user) => {
             if (user) {
                 return res.status(400).send(req.body.Username + 'already exists');
@@ -107,7 +109,7 @@ app.post('/users', (req, res) => {
                 Users
                     .create({
                         Username: req.body.Username,
-                        Password: req.body.Password,
+                        Password: hashedPassword,
                         Email: req.body.Email,
                         Birthday: req.body.Birthday
                     })

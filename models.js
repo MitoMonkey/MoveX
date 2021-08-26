@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt'); // to hash user data
 
 let moveSchema = mongoose.Schema({
     Title: {type: String, required: true},
@@ -26,6 +27,14 @@ let userSchema = mongoose.Schema({
         ref: 'Move' // singular “Move” because that is the name of the model which links the moveSchema to its database collection
     }]
 });
+
+userSchema.statics.hashPassword = (password) => {
+    return bcrypt.hashSync(password, 10);
+};
+
+userSchema.methods.validatePassword = function (password) { // can't be an arrow function because that would bind "this.password" to userSchema.methods instead of the user it is called on
+    return bcrypt.compareSync(password, this.Password);
+};
 
 let Move = mongoose.model('Move', moveSchema); // will come out as "db.moves"
 let User = mongoose.model('User', userSchema);
