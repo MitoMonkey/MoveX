@@ -5,11 +5,26 @@ const express = require('express'),
     Models = require('./models.js'); // Mongoose models representing the MoveX_DB (MongoDB) collections
 
 const app = express(); // encapsulates Express’s functionality to configure your web server
+
 const Moves = Models.Move; // load the mongoose model defined in models.js
 const Users = Models.User;
 mongoose.connect('mongodb://localhost:27017/MoveX_DB', { useNewUrlParser: true, useUnifiedTopology: true });
 
-// "use" middleware
+// Cross-Origin Resource Sharing - to connect to the API from frontends on different domains
+const cors = require('cors');
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) === -1) { // If a specific origin isn’t found on the list of allowed origins
+            let message = 'The CORS policy for this application doesn’t allow access from origin ' + origin;
+            return callback(new Error(message), false);
+        }
+        return callback(null, true);
+    }
+}));
+
+// other middleware
 app.use(morgan('common')); // load "common" logging rules
 app.use(express.static('public')); // automatically route all files in the "public" folder
 app.use(bodyParser.json());
