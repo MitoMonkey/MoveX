@@ -157,7 +157,7 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false }),
         check('Username', 'Username has to be only alphanumeric.').isAlphanumeric(),
         check('Password', 'Password is required').not().isEmpty(),
         check('Email', 'Email does not appear to be valid').isEmail(),
-        check('Birthday', 'Birthday needs to be in the format DD-MM-YYYY').isDate()
+        check('Birthday', 'Birthday needs to be in the format YYY-MM-DD').optional().isDate()
     ], (req, res) => {
 
     // check the validation object for errors
