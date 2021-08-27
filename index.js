@@ -4,7 +4,7 @@ const express = require('express'),
     mongoose = require('mongoose'), // business layer logic to link Node and the MongoDB
     Models = require('./models.js'); // Mongoose models representing the MoveX_DB (MongoDB) collections
 
-const app = express(); // encapsulates Express’s functionality to configure your web server
+const app = express(); // encapsulates Express’s functionality to configure the web server
 
 const Moves = Models.Move; // load the mongoose model defined in models.js
 const Users = Models.User;
@@ -12,7 +12,7 @@ mongoose.connect('mongodb://localhost:27017/MoveX_DB', { useNewUrlParser: true, 
 
 // Cross-Origin Resource Sharing - to connect to the API from frontends on different domains
 const cors = require('cors');
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+let allowedOrigins = ['*']; // ['http://localhost:8080', 'http://testsite.com']
 app.use(cors({
     origin: (origin, callback) => {
         if (!origin) return callback(null, true);
@@ -23,6 +23,8 @@ app.use(cors({
         return callback(null, true);
     }
 }));
+
+const { check, validationResult } = require('express-validator'); // module to validate input formats
 
 // other middleware
 app.use(morgan('common')); // load "common" logging rules
@@ -99,7 +101,21 @@ app.get('/sources/:Name', passport.authenticate('jwt', { session: false }), (req
     Email: String,
     Birthday: Date
     } */
-app.post('/users', (req, res) => {
+app.post('/users',
+    // Validation logic here for request
+    [
+        check('Username', 'Username of min 5 characters is required.').isLength({ min: 5 }),
+        check('Username', 'Username has to be only alphanumeric.').isAlphanumeric(),
+        check('Password', 'Password is required').not().isEmpty(),
+        check('Email', 'Email does not appear to be valid').isEmail()
+    ], (req, res) => {
+
+    // check the validation object for errors
+    let errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
+
     let hashedPassword = Users.hashPassword(req.body.Password);
     Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
         .then((user) => {
@@ -135,7 +151,21 @@ app.post('/users', (req, res) => {
     Email: String, (required)
     Birthday: Date
     }*/
-app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.put('/users/:Username', passport.authenticate('jwt', { session: false }), 
+    [
+        check('Username', 'Username of min 5 characters is required.').isLength({ min: 5 }),
+        check('Username', 'Username has to be only alphanumeric.').isAlphanumeric(),
+        check('Password', 'Password is required').not().isEmpty(),
+        check('Email', 'Email does not appear to be valid').isEmail(),
+        check('Birthday', 'Birthday needs to be in the format DD-MM-YYYY').isDate()
+    ], (req, res) => {
+
+    // check the validation object for errors
+    let errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
+
     Users.findOneAndUpdate({ Username: req.params.Username }, {
         $set:
         {
