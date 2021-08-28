@@ -1,7 +1,7 @@
 // this script provides the “/login” endpoint for registered users 
 // it contains logic for authenticating users with basic HTTP authentication and generating a JWT token for authenticating future requests
 
-const jwtSecret = 'your_jwt_secret'; // this has to be the same key used in the JWTStrategy
+const jwtSecret = 'my_jwt_secret'; // this has to be the same key used in the JWTStrategy
 
 const jwt = require('jsonwebtoken'),
     passport = require('passport');

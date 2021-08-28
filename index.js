@@ -102,14 +102,12 @@ app.get('/sources/:Name', passport.authenticate('jwt', { session: false }), (req
     Birthday: Date
     } */
 app.post('/users',
-    // Validation logic here for request
-    [
+    [ // express-validator logic
         check('Username', 'Username of min 5 characters is required.').isLength({ min: 5 }),
         check('Username', 'Username has to be only alphanumeric.').isAlphanumeric(),
         check('Password', 'Password is required').not().isEmpty(),
         check('Email', 'Email does not appear to be valid').isEmail()
     ], (req, res) => {
-
     // check the validation object for errors
     let errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -120,7 +118,7 @@ app.post('/users',
     Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
         .then((user) => {
             if (user) {
-                return res.status(400).send(req.body.Username + 'already exists');
+                return res.status(400).send(req.body.Username + ' already exists');
             } else {
                 Users
                     .create({
@@ -141,7 +139,6 @@ app.post('/users',
             res.status(500).send('Error: ' + error);
         });
 });
-
 
 // Update a user's info, by username (using a callback rather than the ES6 functions then() and catch() )
     /* We’ll expect JSON in this format
