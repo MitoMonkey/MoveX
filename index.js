@@ -8,7 +8,13 @@ const app = express(); // encapsulates Express’s functionality to configure th
 
 const Moves = Models.Move; // load the mongoose model defined in models.js
 const Users = Models.User;
+
+/*
+// connect mongoose to the local MongoDB
 mongoose.connect('mongodb://localhost:27017/MoveX_DB', { useNewUrlParser: true, useUnifiedTopology: true });
+*/
+// connect mongoose to the (online) MongoDB Atlas, added as an environment variable AKA Config Var on Heroku (to keep it hidden on Github)
+mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Cross-Origin Resource Sharing - to connect to the API from frontends on different domains
 const cors = require('cors');
