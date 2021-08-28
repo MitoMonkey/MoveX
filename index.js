@@ -160,7 +160,7 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false }),
         check('Username', 'Username has to be only alphanumeric.').isAlphanumeric(),
         check('Password', 'Password is required').not().isEmpty(),
         check('Email', 'Email does not appear to be valid').isEmail(),
-        check('Birthday', 'Birthday needs to be in the format YYY-MM-DD').optional().isDate()
+        check('Birthday', 'Birthday needs to be in the format YYY-MM-DD').optional().isDate() //not necessary because mongoose model also validates it, but here the result is JSON
     ], (req, res) => {
 
     // check the validation object for errors
