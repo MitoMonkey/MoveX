@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt'); // to hash user data
+const bcrypt = require('bcrypt'); // to hash user passwords
 
 let moveSchema = mongoose.Schema({
     Title: {type: String, required: true},

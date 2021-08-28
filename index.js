@@ -39,7 +39,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 let auth = require('./auth')(app);
-const passport = require('passport');
+const passport = require('passport'); // module for HTML and JWT authentication
 require('./passport');
 
 // --- ROUTING ---
@@ -178,7 +178,7 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false }),
             Birthday: req.body.Birthday
         }
     },
-        { new: true }, // This line makes sure that the updated document is returned into the callback:
+        { new: true }, // This line makes sure that the updated document is returned into the callback
         (err, updatedUser) => {
             if (err) {
                 console.error(err);
@@ -225,7 +225,6 @@ app.post('/users/:Username/moves/:MoveID', passport.authenticate('jwt', { sessio
 // Remove favorite from list
 app.delete('/users/:Username/moves/:MoveID', passport.authenticate('jwt', { session: false }), (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
-        // TO ADD: validate if the move is already in the list, otherwise it will be double
         $pull: { FavoriteMoves: req.params.MoveID }
     },
         { new: true }, // This line makes sure that the updated document is returned
@@ -240,7 +239,7 @@ app.delete('/users/:Username/moves/:MoveID', passport.authenticate('jwt', { sess
 });
 
 
-// Get all users --- NOT A DEFINED API ENDPOINT
+// Get all users --- NOT AN OFFICIAL API ENDPOINT
 app.get('/users', passport.authenticate('jwt', { session: false }), (req, res) => {
     Users.find()
         .then((users) => {
@@ -252,7 +251,7 @@ app.get('/users', passport.authenticate('jwt', { session: false }), (req, res) =
         });
 });
 
-// Get a user by username --- NOT A DEFINED API ENDPOINT
+// Get a user by username --- NOT A OFFICIAL API ENDPOINT
 app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
     Users.findOne({ Username: req.params.Username })
         .then((user) => {
