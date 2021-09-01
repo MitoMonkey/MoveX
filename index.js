@@ -38,7 +38,8 @@ app.use(express.static('public')); // automatically route all files in the "publ
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-let auth = require('./auth')(app);
+let auth = require('./auth'); // custom module for the /login endpoint
+auth();
 const passport = require('passport'); // module for HTML and JWT authentication
 require('./passport');
 
