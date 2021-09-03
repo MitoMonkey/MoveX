@@ -1,6 +1,14 @@
+# MoveX-backend
 Server-side for the MoveX App - REST API and a non-relational database
 
-Tech stack used: MERN
+Find the frontend here: [MoveX client](https://github.com/MitoMonkey/MoveX-client)
+
+## Live Demo
+
+[MoveX backend](https://move-x.herokuapp.com/)
+
+## Built With
+MERN Tech stack
 	○ Code editor: VS Code (with ESLint)
     ○ MongoDB with hosting of the database on MongoDB Atlas
     ○ Heroku to host the app
@@ -16,12 +24,19 @@ Tech stack used: MERN
         § "jsonwebtoken" to generate JWT tokens
         § "bcrypt" to hash user passwords
     ○ Environment variable to hide the link to the MongoDB Atlas in the Github repo
-Things that could still be improved
+
+## Things that could still be improved
     ○ For "Add a move to a users list of favorites": check if the move is already in the list to avoid douple entries (& analog for removing a move from the favorites)
     ○ Currently on user who is logged in could, given he has the username of another user, edit their credentials. This can be  fixed by adding a check if the `req.params.Username` is equal to the logged in `Username`, but to get the logged in Username you have to decide the JWT token, so the lesson leaves it out for simplicity.
     ○ Data validation for the Birthday field. Currently on registration it is handled by the mongoose model (returning a string if invalid), and additionally by express-validator for the "edit user data" endpoint (return an HTML if invalid)
     ○ environment variable for the jwtSecret
-Links
-    ○ https://github.com/MitoMonkey/MoveX
-    ○ https://move-x.herokuapp.com/
-    ○ https://move-x.herokuapp.com/documentation.html
+
+## Documentation
+
+All API endpoints can be found here: [MoveX API documentation](https://move-x.herokuapp.com/documentation.html)
+
+## Git repo links
+* [main repo](https://github.com/MitoMonkey/MoveX-backend)
+* [issues page](https://github.com/MitoMonkey/MoveX-client/issues).
+
+
