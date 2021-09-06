@@ -9,16 +9,17 @@ const app = express(); // encapsulates Express’s functionality to configure th
 const Moves = Models.Move; // load the mongoose model defined in models.js
 const Users = Models.User;
 
-/*
+
 // connect mongoose to the local MongoDB
 mongoose.connect('mongodb://localhost:27017/MoveX_DB', { useNewUrlParser: true, useUnifiedTopology: true });
-*/
+/*
 // connect mongoose to the (online) MongoDB Atlas, added as an environment variable AKA Config Var on Heroku (to keep it hidden on Github)
 mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+*/
 
 // Cross-Origin Resource Sharing - to connect to the API from frontends on different domains
 const cors = require('cors');
-let allowedOrigins = ['*']; // ['http://localhost:8080', 'http://testsite.com']
+let allowedOrigins = ['*', 'http://localhost:8080', 'http://localhost:1234']; // ['http://localhost:8080', 'http://testsite.com']
 app.use(cors({
     origin: (origin, callback) => {
         if (!origin) return callback(null, true);
@@ -39,7 +40,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 let auth = require('./auth'); // custom module for the /login endpoint
-auth();
+auth(app);
 const passport = require('passport'); // module for HTML and JWT authentication
 require('./passport');
 
@@ -51,7 +52,8 @@ app.get('/', (req, res) => {
 });
 
 // GET list of all moves
-app.get('/moves', passport.authenticate('jwt', { session: false }), (req, res) => {
+// temporarily disabled the authentication: passport.authenticate('jwt', { session: false }), 
+app.get('/moves', (req, res) => {
     Moves.find()
         .then((moves) => {
             res.status(201).json(moves);
