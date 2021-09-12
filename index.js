@@ -16,6 +16,7 @@ mongoose.connect('mongodb://localhost:27017/MoveX_DB', { useNewUrlParser: true, 
 // connect mongoose to the (online) MongoDB Atlas, added as an environment variable AKA Config Var on Heroku (to keep it hidden on Github)
 mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
+
 // Cross-Origin Resource Sharing - to connect to the API from frontends on different domains
 const cors = require('cors');
 let allowedOrigins = ['*', 'http://localhost:8080', 'http://localhost:1234']; // ['http://localhost:8080', 'http://testsite.com']
@@ -51,8 +52,7 @@ app.get('/', (req, res) => {
 });
 
 // GET list of all moves
-// temporarily disabled the authentication: passport.authenticate('jwt', { session: false }), 
-app.get('/moves', (req, res) => {
+app.get('/moves', passport.authenticate('jwt', { session: false }), (req, res) => {
     Moves.find()
         .then((moves) => {
             res.status(201).json(moves);
