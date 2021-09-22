@@ -19,7 +19,7 @@ mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnified
 
 // Cross-Origin Resource Sharing - to connect to the API from frontends on different domains
 const cors = require('cors');
-let allowedOrigins = ['*', 'http://localhost:8080', 'http://localhost:1234', 'https://movex.netlify.app/'];
+let allowedOrigins = ['*', 'http://localhost:8080', 'http://localhost:1234', 'https://move-x.netlify.app/'];
 app.use(cors({
     origin: (origin, callback) => {
         if (!origin) return callback(null, true);
