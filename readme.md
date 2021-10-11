@@ -1,12 +1,12 @@
 # MoveX-backend
-Server-side for the MoveX App - REST API and a non-relational database
+Server-side for the MoveX App - A REST API and a non-relational database
 
-Find the frontend here: [MoveX client](https://github.com/MitoMonkey/MoveX-client)
-
-## Live Demo
+## Links
 [MoveX backend](https://move-x.herokuapp.com/)
 
-![Screenshot](./src/Sreenshot.png)
+Find the frontend here: [MoveX client](https://github.com/MitoMonkey/MoveX-client)
+[Live app](https://move-x.netlify.app/)
+![Screenshot](./Sreenshot.png)
 
 ## Documentation
 All API endpoints can be found here: [MoveX API documentation](https://move-x.herokuapp.com/documentation.html)
@@ -27,6 +27,7 @@ MERN Tech stack (only the frontend is built using React library)
 * Code editor: VS Code (with ESLint)
 * MongoDB with hosting of the database on MongoDB Atlas
 * Heroku to host the app
+* (Postman to test the API endpoints)
 * Node.js
 * Node dependencies:
     * "Express" for routing
@@ -41,6 +42,7 @@ MERN Tech stack (only the frontend is built using React library)
 * Environment variable to hide the link to the MongoDB Atlas in the Github repo
 
 ## Local testing
+( Set up the project with all dependencies: `npm install` (in project folder) )
 1. In index.js change connection to local DB (out-commented)
 2. Run server: `node index.js` (> ctrl + C to terminate)
 3. access local mongoDB though monogo shell: `mongo` (`quit` to exit)
@@ -62,7 +64,6 @@ MERN Tech stack (only the frontend is built using React library)
 * Use environment variable for the jwtSecret
 
 ## Git repo links
-* [main repo](https://github.com/MitoMonkey/MoveX-backend)
 * [issues page](https://github.com/MitoMonkey/MoveX-client/issues)
 
 
