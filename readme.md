@@ -6,7 +6,8 @@ Server-side for the MoveX App - A REST API and a non-relational database
 
 Find the frontend here: [MoveX client](https://github.com/MitoMonkey/MoveX-client)
 [Live app](https://move-x.netlify.app/)
-![Screenshot](./Sreenshot.png)
+
+![Screenshot](./Screenshot.png)
 
 ## Documentation
 All API endpoints can be found here: [MoveX API documentation](https://move-x.herokuapp.com/documentation.html)
