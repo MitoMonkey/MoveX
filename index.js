@@ -19,8 +19,7 @@ mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnified
 
 // Cross-Origin Resource Sharing - to connect to the API from frontends on different domains
 const cors = require('cors');
-/* let allowedOrigins = "https://move-x.netlify.app/";
-// , 'http://localhost:8080', 'http://localhost:1234', 'https://move-x.netlify.app/'
+let allowedOrigins = "https://move-x.netlify.app/, http://localhost:8080, http://localhost:1234";
 app.use(cors({
     origin: (origin, callback) => {
         if (!origin) return callback(null, true);
@@ -30,8 +29,8 @@ app.use(cors({
         }
         return callback(null, true);
     }
-})); */
-app.use(cors());
+}));
+/* app.use(cors()); */
 
 const { check, validationResult } = require('express-validator'); // module to validate input formats
 
@@ -244,7 +243,7 @@ app.delete('/users/:Username/moves/:MoveID', passport.authenticate('jwt', { sess
 });
 
 
-// Get all users --- NOT AN OFFICIAL API ENDPOINT
+/* // Get all users --- NOT AN OFFICIAL API ENDPOINT
 app.get('/users', passport.authenticate('jwt', { session: false }), (req, res) => {
     Users.find()
         .then((users) => {
@@ -267,7 +266,7 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (r
             res.status(500).send('Error: ' + err);
         });
 });
-
+ */
 
 // handling for errors that have not be handled anywhere else
 // eslint-disable-next-line no-unused-vars

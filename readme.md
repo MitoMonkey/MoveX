@@ -6,7 +6,7 @@ Find the frontend here: [MoveX client](https://github.com/MitoMonkey/MoveX-clien
 ## Live Demo
 [MoveX backend](https://move-x.herokuapp.com/)
 
-[Screenshot](./src/Sreenshot.png)
+![Screenshot](./src/Sreenshot.png)
 
 ## Documentation
 All API endpoints can be found here: [MoveX API documentation](https://move-x.herokuapp.com/documentation.html)
@@ -40,14 +40,29 @@ MERN Tech stack (only the frontend is built using React library)
     * "bcrypt" to hash user passwords
 * Environment variable to hide the link to the MongoDB Atlas in the Github repo
 
+## Local testing
+1. In index.js change connection to local DB (out-commented)
+2. Run server: `node index.js` (> ctrl + C to terminate)
+3. access local mongoDB though monogo shell: `mongo` (`quit` to exit)
+  * To see a list of all databases: `show dbs`
+  * To see which database MongoDB is currently set to: `db`
+  * Set working DB: `use MoveX_DB`
+  * To view all of the collections in your current database: `db.getCollectionNames()`
+  * Create new collection: `db.createCollection("collectionName")`
+  * Insert new document into a collection: `db.collectionName.insertOne(document-to-insert)`
+  * Read all records from a collection: `db.[collectionName].find().pretty()`
+  * If you only want to see the first record in a collection: `db.[collectionName].findOne()`
+
+## Deployment
+* `git push heroku master`
+
 ## Things that could still be improved
-* For "Add a move to a users list of favorites": check if the move is already in the list to avoid douple entries (& analog for removing a move from the favorites)
-* Currently on user who is logged in could, given he has the username of another user, edit their credentials. This can be  fixed by adding a check if the `req.params.Username` is equal to the logged in `Username`, but to get the logged in Username you have to decide the JWT token, so the lesson leaves it out for simplicity.
-* Data validation for the Birthday field. Currently on registration it is handled by the mongoose model (returning a string if invalid), and additionally by express-validator for the "edit user data" endpoint (return an HTML if invalid)
-* environment variable for the jwtSecret
+* Currently on user who is logged in could, given he has the username of another user, edit their profile. This can be fixed by adding a check if the `req.params.Username` is equal to the logged in `Username`. But the issue is handled in the frontend.
+* Data validation for the Birthday field. Currently on registration it is handled by the mongoose model (returning a string if invalid), and additionally by express-validator for the "edit user data" endpoint (return an HTML if invalid). But there is validation at the frontend as well.
+* Use environment variable for the jwtSecret
 
 ## Git repo links
 * [main repo](https://github.com/MitoMonkey/MoveX-backend)
-* [issues page](https://github.com/MitoMonkey/MoveX-client/issues).
+* [issues page](https://github.com/MitoMonkey/MoveX-client/issues)
 
 
