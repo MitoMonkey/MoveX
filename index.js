@@ -243,8 +243,8 @@ app.delete('/users/:Username/moves/:MoveID', passport.authenticate('jwt', { sess
 });
 
 
-/* // Get all users --- NOT AN OFFICIAL API ENDPOINT
-app.get('/users', passport.authenticate('jwt', { session: false }), (req, res) => {
+// Get all users --- NOT AN OFFICIAL API ENDPOINT
+/* app.get('/users', passport.authenticate('jwt', { session: false }), (req, res) => {
     Users.find()
         .then((users) => {
             res.status(201).json(users);
@@ -253,7 +253,7 @@ app.get('/users', passport.authenticate('jwt', { session: false }), (req, res) =
             console.error(err);
             res.status(500).send('Error: ' + err);
         });
-});
+}); */
 
 // Get a user by username --- NOT A OFFICIAL API ENDPOINT
 app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
@@ -266,7 +266,7 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (r
             res.status(500).send('Error: ' + err);
         });
 });
- */
+
 
 // handling for errors that have not be handled anywhere else
 // eslint-disable-next-line no-unused-vars
