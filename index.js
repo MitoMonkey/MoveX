@@ -19,8 +19,8 @@ mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnified
 
 // Cross-Origin Resource Sharing - to connect to the API from frontends on different domains
 const cors = require('cors');
-let allowedOrigins = "https://move-x.netlify.app/, http://localhost:8080, http://localhost:1234";
-app.use(cors({
+/* let allowedOrigins = "https://move-x.netlify.app/, http://localhost:8080, http://localhost:1234, http://localhost:4200";
+  app.use(cors({
     origin: (origin, callback) => {
         if (!origin) return callback(null, true);
         if (allowedOrigins.indexOf(origin) === -1) { // If a specific origin isn’t found on the list of allowed origins
@@ -29,8 +29,8 @@ app.use(cors({
         }
         return callback(null, true);
     }
-}));
-/* app.use(cors()); */ // allow all origins for development & testing
+})); */
+app.use(cors()); // allow all origins for development & testing
 
 const { check, validationResult } = require('express-validator'); // module to validate input formats
 
@@ -255,7 +255,7 @@ app.delete('/users/:Username/moves/:MoveID', passport.authenticate('jwt', { sess
         });
 }); */
 
-// Get a user by username --- NOT A OFFICIAL API ENDPOINT
+// Get a user by username --- NOT AN OFFICIAL API ENDPOINT
 app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
     Users.findOne({ Username: req.params.Username })
         .then((user) => {
