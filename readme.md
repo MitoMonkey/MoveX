@@ -16,7 +16,7 @@ There is also an [Angular frontend](https://github.com/MitoMonkey/MoveX-Angular-
 
 ## Documentation
 All API endpoints can be found here: [MoveX API documentation](https://move-x.herokuapp.com/documentation.html)
-Another documentation of all endpoints, sorted by HTML request method, was created is JSDocs and can be found in the [folder "out"](./out/index.html).
+Another documentation of all endpoints, sorted by HTML request method, was created using JSDocs and can be found in the [folder "out"](./out/index.html).
 
 ## Features
 * Return a list of ALL moves to the user
