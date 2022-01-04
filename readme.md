@@ -1,18 +1,18 @@
 # MoveX-backend
 Server-side for the MoveX App - A REST API and a non-relational database
 
+![API Screenshot](./img/Screenshot_2_small.png)
+
 ## Links
 [MoveX backend](https://move-x.herokuapp.com/)
 
 Find the React frontend here: [MoveX client](https://github.com/MitoMonkey/MoveX-client)
 [Live app](https://move-x.netlify.app/)
-
-![React Screenshot](./Screenshot.png)
+![React Screenshot](./img/Screenshot_MoveX-React.png)
 
 There is also an [Angular frontend](https://github.com/MitoMonkey/MoveX-Angular-client)
 [Live app](https://mitomonkey.github.io/MoveX-Angular-client/moves)
-
-![Angular Screenshot](./Screenshot_Angular.png)
+![Angular Screenshot](./img/Screenshot_MoveX-Angular.png)
 
 ## Documentation
 All API endpoints can be found here: [MoveX API documentation](https://move-x.herokuapp.com/documentation.html)
