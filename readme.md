@@ -69,7 +69,7 @@ MERN Tech stack (only the frontend is built using React library)
 * `git push heroku master`
 
 ## Things that could still be improved
-* Currently on user who is logged in could, given he has the username of another user, edit their profile. This can be fixed by adding a check if the `req.params.Username` is equal to the logged in `Username`. But the issue is handled in the frontend.
+* Currently a user who is logged in could, given he has the username of another user, edit their profile. This can be fixed by adding a check if the `req.params.Username` is equal to the logged in `Username`. But the issue is handled in the frontend.
 * Data validation for the Birthday field. Currently on registration it is handled by the mongoose model (returning a string if invalid), and additionally by express-validator for the "edit user data" endpoint (return an HTML if invalid). But there is validation at the frontend as well.
 * Use environment variable for the jwtSecret
 
