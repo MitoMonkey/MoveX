@@ -4,7 +4,7 @@ Server-side for the MoveX App - A REST API and a non-relational database
 ![API Screenshot](./img/Screenshot_2_small.png)
 
 ## Links
-[MoveX backend](https://move-x.herokuapp.com/)
+[MoveX backend](https://movex-api.onrender.com)
 
 Find the React frontend here: 
 [MoveX client](https://github.com/MitoMonkey/MoveX-client)
@@ -36,7 +36,7 @@ Another documentation of all endpoints, sorted by HTML request method, was creat
 MERN Tech stack (only the frontend is built using React library)
 * Code editor: VS Code (with ESLint)
 * MongoDB with hosting of the database on MongoDB Atlas
-* Heroku to host the app
+* Render.com to host the app
 * (Postman to test the API endpoints)
 * Node.js
 * Node dependencies:
@@ -66,7 +66,7 @@ MERN Tech stack (only the frontend is built using React library)
   * If you only want to see the first record in a collection: `db.[collectionName].findOne()`
 
 ## Deployment
-* `git push heroku master`
+* <!--`git push heroku master`-->
 
 ## Things that could still be improved
 * Currently a user who is logged in could, given he has the username of another user, edit their profile. This can be fixed by adding a check if the `req.params.Username` is equal to the logged in `Username`. But the issue is handled in the frontend.

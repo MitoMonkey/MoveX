@@ -19,7 +19,7 @@ const Users = Models.User;
 // connect mongoose to the local MongoDB
 mongoose.connect('mongodb://localhost:27017/MoveX_DB', { useNewUrlParser: true, useUnifiedTopology: true });
 */
-// connect mongoose to the (online) MongoDB Atlas, added as an environment variable AKA Config Var on Heroku (to keep it hidden on Github)
+// connect mongoose to the (online) MongoDB Atlas, added as an environment variable AKA Config Var on API hoster (to keep it hidden on Github)
 mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Cross-Origin Resource Sharing - to connect to the API from frontends on different domains
