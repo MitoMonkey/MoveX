@@ -18,8 +18,8 @@ There is also an [Angular frontend](https://github.com/MitoMonkey/MoveX-Angular-
 ![Angular Screenshot](./img/Screenshot_MoveX-Angular.png)
 
 ## Documentation
-All API endpoints can be found here: [MoveX API documentation](https://move-x.herokuapp.com/documentation.html)
-Another documentation of all endpoints, sorted by HTML request method, was created using JSDocs: [JSDocs MoveX API documentation](https://move-x.herokuapp.com/JSDocs/index.html).
+All API endpoints can be found here: [MoveX API documentation](https://mitomonkey.github.io/MoveX-backend/documentation.html)
+Another documentation of all endpoints, sorted by HTML request method, was created using JSDocs: [JSDocs MoveX API documentation](https://mitomonkey.github.io/MoveX-backend/JSDocs/index.html).
 
 ## Features
 * Return a list of ALL moves to the user
@@ -67,6 +67,7 @@ MERN Tech stack (only the frontend is built using React library)
 
 ## Deployment
 * <!--`git push heroku master`-->
+Simply push to the master branch on github
 
 ## Things that could still be improved
 * Currently a user who is logged in could, given he has the username of another user, edit their profile. This can be fixed by adding a check if the `req.params.Username` is equal to the logged in `Username`. But the issue is handled in the frontend.
